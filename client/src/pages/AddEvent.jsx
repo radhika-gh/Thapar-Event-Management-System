@@ -66,7 +66,7 @@ export default function AddEvent() {
             <input
               type="text"
               name="title"
-              className='rounded mt-2 pl-5 px-4 ring-sky-700 ring-2 h-8 border-none'
+              className='rounded mt-2 pl-5 px-4 ring-red-700 ring-2 h-8 border-none'
               value={formData.title}
               onChange={handleChange}
             />
@@ -76,7 +76,7 @@ export default function AddEvent() {
             <input
               type="text"
               name="optional"
-              className='rounded mt-2 pl-5 px-4 ring-sky-700 ring-2 h-8 border-none'
+              className='rounded mt-2 pl-5 px-4 ring-red-700 ring-2 h-8 border-none'
               value={formData.optional}
               onChange={handleChange}
             />
@@ -85,7 +85,7 @@ export default function AddEvent() {
             Description:
             <textarea
               name="description"
-              className='rounded mt-2 pl-5 px-4 py-2 ring-sky-700 ring-2 h-8 border-none'
+              className='rounded mt-2 pl-5 px-4 py-2 ring-red-700 ring-2 h-8 border-none'
               value={formData.description}
               onChange={handleChange}
             />
@@ -94,7 +94,7 @@ export default function AddEvent() {
             Organized By:
             <input
               type="text"
-              className='rounded mt-2 pl-5 px-4 ring-sky-700 ring-2 h-8 border-none'
+              className='rounded mt-2 pl-5 px-4 ring-red-700 ring-2 h-8 border-none'
               name="organizedBy"
               value={formData.organizedBy}
               onChange={handleChange}
@@ -104,7 +104,7 @@ export default function AddEvent() {
             Event Date:
             <input
               type="date"
-              className='rounded mt-2 pl-5 px-4 ring-sky-700 ring-2 h-8 border-none'
+              className='rounded mt-2 pl-5 px-4 ring-red-700 ring-2 h-8 border-none'
               name="eventDate"
               value={formData.eventDate}
               onChange={handleChange}
@@ -115,7 +115,7 @@ export default function AddEvent() {
             <input
               type="time"
               name="eventTime"
-              className='rounded mt-2 pl-5 px-4 ring-sky-700 ring-2 h-8 border-none'
+              className='rounded mt-2 pl-5 px-4 ring-red-700 ring-2 h-8 border-none'
               value={formData.eventTime}
               onChange={handleChange}
             />
@@ -125,7 +125,7 @@ export default function AddEvent() {
             <input
               type="text"
               name="location"
-              className='rounded mt-2 pl-5 px-4 ring-sky-700 ring-2 h-8 border-none'
+              className='rounded mt-2 pl-5 px-4 ring-red-700 ring-2 h-8 border-none'
               value={formData.location}
               onChange={handleChange}
             />
@@ -135,7 +135,7 @@ export default function AddEvent() {
             <input
               type="number"
               name="ticketPrice"
-              className='rounded mt-2 pl-5 px-4 ring-sky-700 ring-2 h-8 border-none'
+              className='rounded mt-2 pl-5 px-4 ring-red-700 ring-2 h-8 border-none'
               value={formData.ticketPrice}
               onChange={handleChange}
             />
@@ -145,7 +145,7 @@ export default function AddEvent() {
             <input
               type="file"
               name="image"
-              className='rounded mt-2 pl-5 px-4 py-10 ring-sky-700 ring-2 h-8 border-none'
+              className='rounded mt-2 pl-5 px-4 py-10 ring-red-700 ring-2 h-8 border-none'
               onChange={handleImageUpload}
             />
           </label>
