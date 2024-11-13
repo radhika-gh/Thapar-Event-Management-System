@@ -37,6 +37,7 @@ mongoose.connect(process.env.MONGO_URL, {
    useUnifiedTopology: true,
    tls: true,
    tlsAllowInvalidCertificates: false,
+
  })
  .then(() => console.log('MongoDB connected'))
  .catch((err) => console.error('MongoDB connection error:', err));
