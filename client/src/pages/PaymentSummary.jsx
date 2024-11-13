@@ -152,7 +152,7 @@ if (redirect){
               bg-gray-100
               justify-center 
               items-center 
-              text-blue-700
+              text-red-700
               font-bold
               rounded-sm'
               >
@@ -204,7 +204,7 @@ if (redirect){
           <div className="mt-10 space-y-4">
             <h2 className="text-xl font-bold mb-4">Payment Option</h2>
             <div className="ml-10">
-            <button type="button" className="px-8 py-3 text-black bg-blue-100  focus:outline border rounded-sm border-gray-300" disabled>Credit / Debit Card</button>
+            <button type="button" className="px-8 py-3 text-black bg-red-100  focus:outline border rounded-sm border-gray-300" disabled>Credit / Debit Card</button>
             </div>
           
             <input
@@ -246,7 +246,7 @@ if (redirect){
               />
             </div>
             <div className="float-right">
-            <p className="text-sm font-semibold pb-2 pt-8">Total : LKR. {event.ticketPrice}</p>
+            <p className="text-sm font-semibold pb-2 pt-8">Total : Rs. {event.ticketPrice}</p>
             <Link to={'/'}>
               <button type="button" 
                 onClick = {createTicket}
@@ -259,7 +259,7 @@ if (redirect){
             
           </div>
       </div>
-      <div className="float-right bg-blue-100 w-1/4 p-5 mt-8 mr-12">
+      <div className="float-right bg-red-100 w-1/4 p-5 mt-8 mr-12">
           <h2 className="text-xl font-bold mb-8">Order Summary</h2>
           <div className="space-y-1">
             
@@ -270,7 +270,7 @@ if (redirect){
             <p className="text-xs">{event.eventDate.split("T")[0]},</p>
             <p className="text-xs pb-2"> {event.eventTime}</p>
             <hr className=" my-2 border-t pt-2 border-gray-400" />
-            <p className="float-right font-bold">LKR. {event.ticketPrice}</p>
+            <p className="float-right font-bold">Rs. {event.ticketPrice}</p>
             <p className="font-bold">Sub total: {event.ticketPrice}</p>
           </div>
           

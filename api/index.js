@@ -8,13 +8,20 @@ const jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
 const multer = require("multer");
 const path = require("path");
-
+const cloudinary = require("cloudinary").v2;
+const { CloudinaryStorage } = require("multer-storage-cloudinary");
 const Ticket = require("./models/Ticket");
 
 const app = express();
 
 const bcryptSalt = bcrypt.genSaltSync(10);
 const jwtSecret = "bsbsfbrnsftentwnnwnwn";
+
+cloudinary.config({
+   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+   api_key: process.env.CLOUDINARY_API_KEY,
+   api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
 app.use(express.json());
 app.use(cookieParser());
@@ -25,14 +32,21 @@ app.use(
    })
 );
 
-mongoose.connect(process.env.MONGO_URL);
+mongoose.connect(process.env.MONGO_URL, {
+   useNewUrlParser: true,
+   useUnifiedTopology: true,
+   tls: true,
+   tlsAllowInvalidCertificates: false,
+ })
+ .then(() => console.log('MongoDB connected'))
+ .catch((err) => console.error('MongoDB connection error:', err));
+ 
 
-const storage = multer.diskStorage({
-   destination: (req, file, cb) => {
-      cb(null, "uploads/");
-   },
-   filename: (req, file, cb) => {
-      cb(null, file.originalname);
+ const storage = new CloudinaryStorage({
+   cloudinary: cloudinary,
+   params: {
+      folder: 'events', // Cloudinary folder to store images
+      allowed_formats: ['jpg', 'jpeg', 'png', 'gif'],
    },
 });
 
@@ -126,15 +140,33 @@ const Event = mongoose.model("Event", eventSchema);
 
 app.post("/createEvent", upload.single("image"), async (req, res) => {
    try {
+      console.log("Uploaded file:", req.file); // Debugging: Log the file object
+
+      // Check if the file was uploaded successfully
+      if (req.file) {
+         console.log("Cloudinary URL:", req.file.path); // Debugging: Log the Cloudinary URL
+      } else {
+         console.error("No file uploaded");
+         return res.status(400).json({ error: "No image uploaded" });
+      }
+
+      // Get event data from the request body
       const eventData = req.body;
-      eventData.image = req.file ? req.file.path : "";
+
+      // Store the Cloudinary image URL
+      eventData.image = req.file.path;
+
+      // Create a new event and save it to MongoDB
       const newEvent = new Event(eventData);
       await newEvent.save();
-      res.status(201).json(newEvent);
+      
+      res.status(201).json(newEvent); // Return the new event with the image URL
    } catch (error) {
+      console.error("Error creating event:", error);
       res.status(500).json({ error: "Failed to save the event to MongoDB" });
    }
 });
+
 
 app.get("/createEvent", async (req, res) => {
    try {
