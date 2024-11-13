@@ -53,7 +53,7 @@ export default function TicketPage() {
                 bg-gray-100
                 justify-center 
                 items-center 
-                text-blue-700
+                text-red-700
                 font-bold
                 rounded-md'
                 >

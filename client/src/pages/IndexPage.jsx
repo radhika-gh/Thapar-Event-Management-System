@@ -45,7 +45,7 @@ export default function IndexPage() {
         
         {/* Fixed Image Banner */}
         <img 
-          src="client\src\assets\main.jpg"
+          src="client\public\assets\hero.jpg"
           alt="Banner"
           className="w-full h-[50vh] object-cover"
         />
