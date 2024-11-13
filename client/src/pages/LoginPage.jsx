@@ -135,19 +135,17 @@ export default function LoginPage() {
 
     </div>
    
-    <div className= "hidden lg:flex flex-col right-box">
-      <div className='flex flex-col -ml-96 gap-3'>
-        <div className='text-3xl font-black'>Welcome to</div>
-        <div>
-          <img src="../src/assets/logo.png" alt="" className="w-48"/>
-        </div>
-      </div>
+<div className="hidden lg:flex flex-col items-center justify-center gap-3 mx-auto mt-12">
+  <div className='text-3xl font-black'>Welcome to</div>
+  <div>
+    <img src="../public/assets/logo.png" alt="Logo" className="w-48"/>
+  </div>
+  <div className="w-80 mt-12">
+    <img src="../public/assets/signinpic.jpeg" alt="Signin" className='w-full'/>
+  </div>
+</div>
 
-        <div className="-ml-48 w-80 mt-12">
-          <img src="../src/assets/signinpic.svg" alt="" className='w-full'/>
-        </div>   
-        
-    </div>
+
     
   </div>
   )

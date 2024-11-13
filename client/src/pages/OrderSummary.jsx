@@ -96,7 +96,7 @@ export default function OrderSummary() {
                       pl-4
                       h-1/4
                       mr-12 
-                      bg-blue-100
+                      bg-red-100
                     "
                       >
                         <h2 className='
@@ -125,7 +125,7 @@ export default function OrderSummary() {
                                   <Link to={'/event/'+event._id+ '/ordersummary'+'/paymentsummary'}>
                                     <button 
                                     className={`mt-5 p-3 ml-2 w-36 text-gray-100 items-center ${
-                                      isCheckboxChecked ? 'bg-blue-700' : 'bg-gray-300'} gap-2 rounded-md`}
+                                      isCheckboxChecked ? 'bg-red-700' : 'bg-gray-300'} gap-2 rounded-md`}
                                     disabled={!isCheckboxChecked}
                                     >
                                       Proceed

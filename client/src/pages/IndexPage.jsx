@@ -45,7 +45,7 @@ export default function IndexPage() {
         
         {/* Fixed Image Banner */}
         <img 
-          src="client\public\assets\hero.jpg"
+          src="..\public\assets\Home.png"
           alt="Banner"
           className="w-full h-[50vh] object-cover"
         />
@@ -129,10 +129,6 @@ export default function IndexPage() {
             })}
         </div>
 
-        {/* Footer */}
-        <footer className="bg-gray-800 text-white text-center py-4 mt-auto">
-          Footer Content Here
-        </footer>
       </div>
     </>
   );
