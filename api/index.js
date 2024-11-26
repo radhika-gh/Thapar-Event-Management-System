@@ -56,7 +56,6 @@ const upload = multer({ storage });
 app.get("/test", (req, res) => {
    res.json("test ok");
 });
-
 app.post("/register", async (req, res) => {
    const { name, email, password } = req.body;
 
@@ -71,6 +70,8 @@ app.post("/register", async (req, res) => {
       res.status(422).json(e);
    }
 });
+
+// Backend route - /login
 
 app.post("/login", async (req, res) => {
    const { email, password } = req.body;
@@ -134,7 +135,14 @@ const eventSchema = new mongoose.Schema({
    Quantity: Number,
    image: String,
    likes: Number,
+   likedBy: { type: [String], default: [] },
    Comment: [String],
+   bookedBy: [
+      {
+        type: mongoose.Schema.Types.ObjectId, // Reference to User model
+        ref: "User",
+      },
+    ],
 });
 
 const Event = mongoose.model("Event", eventSchema);
@@ -187,27 +195,44 @@ app.get("/event/:id", async (req, res) => {
       res.status(500).json({ error: "Failed to fetch event from MongoDB" });
    }
 });
+// Assuming your backend API looks something like this
+app.post('/event/:eventId/like', async (req, res) => {
+   const { eventId } = req.params;
+   const { userId } = req.body; // Assuming the userId is passed in the request body
 
-app.post("/event/:eventId", (req, res) => {
-   const eventId = req.params.eventId;
+   try {
+      // Retrieve the event from the database using the eventId
+      const event = await Event.findById(eventId);
 
-   Event.findById(eventId)
-      .then((event) => {
-         if (!event) {
-            return res.status(404).json({ message: "Event not found" });
-         }
+      if (!event) {
+         return res.status(404).json({ message: 'Event not found' });
+      }
 
+      // Check if the user has already liked the event
+      if (!event.likedBy.includes(userId)) {
          event.likes += 1;
-         return event.save();
-      })
-      .then((updatedEvent) => {
-         res.json(updatedEvent);
-      })
-      .catch((error) => {
-         console.error("Error liking the event:", error);
-         res.status(500).json({ message: "Server error" });
-      });
+         event.likedBy.push(userId); // Add the userId to the likedBy array
+      } else {
+         event.likes -= 1;
+         const index = event.likedBy.indexOf(userId);
+if (index > -1) { // Check if userId exists in the array
+   event.likedBy.splice(index, 1); // Remove 1 element at the found index
+}
+ // Remove the userId from the likedBy array
+      }
+
+      // Save the updated event
+      await event.save();
+
+      // Send the updated event back in the response
+      res.json(event);
+   } catch (error) {
+      console.error('Error updating likes:', error);
+      res.status(500).json({ message: 'Server error' });
+   }
 });
+
+
 
 app.get("/events", (req, res) => {
    Event.find()
@@ -290,3 +315,4 @@ const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
    console.log(`Server is running on port ${PORT}`);
 });
+module.exports = Event;

@@ -11,27 +11,35 @@ export default function RegisterPage() {
   const [redirect, setRedirect] = useState('');
   
 
-  async function registerUser(ev){
-    ev.preventDefault();
-
-    if (password !== confirmPassword) {
-      alert('Passwords do not match');
+    async function registerUser(ev) {
+        ev.preventDefault();
+    if (!email.endsWith('@thapar.edu')) {
+      alert('Please Enter Thapar Email');
       return;
     }
-
-    try{
-      await axios.post('/register', {
-        name,
-        email,
-        password,
-        
-      });
-      alert('Registration Successful')
-      setRedirect(true)
-    }catch(e){
-      alert('Registration failed')
-    }
-  }
+        if (password !== confirmPassword) {
+          alert('Passwords do not match');
+          return;
+        }
+        try {
+          // Make a POST request to register the user
+          const response = await axios.post('/register', {
+            name,
+            email,
+            password,
+          });
+          // If registration is successful, alert the user and redirect to login
+          alert('Registration Successful');
+          setRedirect(true);
+        } catch (e) {
+          // Handle errors, including duplicate email
+          if ( e.response.status == 409 ) {
+            alert('Email already registered');
+          } else {
+            alert('Registration failed');
+          }
+        }
+      }
 
   if (redirect){
     return <Navigate to={'/login'} />
@@ -72,7 +80,7 @@ export default function RegisterPage() {
                 <path fillRule="evenodd" d="M17.834 6.166a8.25 8.25 0 100 11.668.75.75 0 011.06 1.06c-3.807 3.808-9.98 3.808-13.788 0-3.808-3.807-3.808-9.98 0-13.788 3.807-3.808 9.98-3.808 13.788 0A9.722 9.722 0 0121.75 12c0 .975-.296 1.887-.809 2.571-.514.685-1.28 1.179-2.191 1.179-.904 0-1.666-.487-2.18-1.164a5.25 5.25 0 11-.82-6.26V8.25a.75.75 0 011.5 0V12c0 .682.208 1.27.509 1.671.3.401.659.579.991.579.332 0 .69-.178.991-.579.3-.4.509-.99.509-1.671a8.222 8.222 0 00-2.416-5.834zM15.75 12a3.75 3.75 0 10-7.5 0 3.75 3.75 0 007.5 0z" clipRule="evenodd" />
               </svg>
 
-              <input type ="email"  placeholder="Email" className="input-et" value={email} onChange={ev => setEmail(ev.target.value)}/>
+              <input type ="email"  placeholder=" Thapar Email" className="input-et" value={email} onChange={ev => setEmail(ev.target.value)}/>
             </div>
 
             <div className= "input">

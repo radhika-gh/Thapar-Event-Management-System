@@ -15,7 +15,7 @@ export default function AddEvent() {
     location: "",
     ticketPrice: 0,
     image: '',
-    likes: 0,
+    likes: 1,
   });
 
   const handleImageUpload = (e) => {
@@ -30,7 +30,7 @@ export default function AddEvent() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
+  
     const form = new FormData();
     // Append text fields to FormData
     Object.keys(formData).forEach((key) => {
@@ -42,18 +42,23 @@ export default function AddEvent() {
     if (formData.image) {
       form.append('image', formData.image);
     }
-
+  
     axios
       .post("/createEvent", form, {
         headers: { 'Content-Type': 'multipart/form-data' }, // This ensures the request is treated as multipart
       })
       .then((response) => {
         console.log("Event posted successfully:", response.data);
+        // Show success alert
+        window.alert("Event created successfully!");
       })
       .catch((error) => {
         console.error("Error posting event:", error);
+        // Show error alert
+        window.alert("Event creation failed. Please try again.");
       });
   };
+  
 
   return (
     <div className='flex flex-col ml-20 mt-10'>

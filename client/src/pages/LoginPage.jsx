@@ -31,7 +31,7 @@ export default function LoginPage() {
         const {data} = await axios.post('/login', {email, password})
         setUser(data);
         alert('Login success');
-
+        
         if (rememberMe) {
           // If the user checked, store their email in localStorage.
           localStorage.setItem('rememberedEmail', email);

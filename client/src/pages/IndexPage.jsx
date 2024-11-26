@@ -13,7 +13,13 @@ export default function IndexPage() {
     axios
       .get("/createEvent")
       .then((response) => {
-        setEvents(response.data);
+        const sortedEvents = response.data.sort((a, b) => {
+          // Extract timestamps from ObjectIDs
+          const timestampA = parseInt(a._id.substring(0, 8), 16);
+          const timestampB = parseInt(b._id.substring(0, 8), 16);
+          return timestampB - timestampA; // Descending order (latest first)
+        });
+        setEvents(sortedEvents);
       })
       .catch((error) => {
         console.error("Error fetching events:", error);
@@ -21,24 +27,25 @@ export default function IndexPage() {
   }, []);
 
   //! Like Functionality --------------------------------------------------------------
-  const handleLike = (eventId) => {
+  const handleLike = (eventId, userId) => {
     axios
-      .post(`/event/${eventId}`)
+      .post(`/event/${eventId}/like`, { userId }) // Send the userId along with the eventId
       .then((response) => {
+        // Update the local events state to reflect the change in likes
         setEvents((prevEvents) =>
           prevEvents.map((event) =>
             event._id === eventId
-              ? { ...event, likes: event.likes + 1 }
+              ? { ...event, likes: response.data.likes } // Use the response from the backend to update likes
               : event
           )
         );
-        console.log("done", response);
+        console.log("Liked event", response);
       })
       .catch((error) => {
-        console.error("Error liking ", error);
+        console.error("Error liking event:", error);
       });
   };
-
+  
   return (
     <>
       <div className="flex flex-col min-h-screen">
@@ -115,7 +122,7 @@ export default function IndexPage() {
                           </span>
                         </div>
                       </div>
-                      <Link to={"/event/" + event._id} className="flex justify-center">
+                      <Link to={'/event/' + event._id} className="flex justify-center">
                         <button className="primary flex items-center gap-2">
                           Book Ticket
                           <BsArrowRightShort className="w-6 h-6" />

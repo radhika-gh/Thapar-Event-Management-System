@@ -75,7 +75,7 @@ export default function OrderSummary() {
   
                                   <li> Tickets will be delivered to your registered email address as e-tickets. You can print the e-ticket or show it on your mobile device for entry to the event. </li>
   
-                                  <li> Each individual is allowed to purchase a maximum of 2 tickets for this event to ensure fair distribution. </li>
+                                  <li> Each individual is allowed to purchase a maximum of 1 ticket for this event to ensure fair distribution. </li>
   
                                   <li> In the rare event of cancellation or postponement, attendees will be notified via email. Refunds will be automatically processed for canceled events. </li>
   

@@ -1,7 +1,7 @@
 import axios from "axios";
 
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom"
+import {Link, useParams,useNavigate } from "react-router-dom"
 import { AiFillCalendar } from "react-icons/ai";
 import { MdLocationPin } from "react-icons/md";
 import { FaCopy, FaWhatsappSquare, FaFacebook } from "react-icons/fa";
@@ -9,7 +9,6 @@ import { FaCopy, FaWhatsappSquare, FaFacebook } from "react-icons/fa";
 export default function EventPage() {
   const {id} = useParams();
   const [event, setEvent] = useState(null);
-
   //! Fetching the event data from server by ID ------------------------------------------
   useEffect(()=>{
     if(!id){
@@ -41,7 +40,7 @@ export default function EventPage() {
     const facebookShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(linkToShare)}`;
     window.open(facebookShareUrl);
   };
-  
+
 if (!event) return '';
   return (
     <div className="flex flex-col mx-5 xl:mx-32 md:mx-10 mt-5 flex-grow">

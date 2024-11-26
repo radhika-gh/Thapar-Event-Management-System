@@ -121,6 +121,44 @@ export default function PaymentSummary() {
   }
 
 }
+// Function to update user and event details
+const updateUserAndEventDetails = async () => {
+  try {
+    // Update the user's bookedEvents
+    const userUpdateResponse = await axios.put(`/users/${user._id}/bookedEvents`, {
+      eventId: event._id, // Pass the current event ID
+    });
+    console.log("User updated:", userUpdateResponse.data);
+
+    // Update the event's bookedBy
+    const eventUpdateResponse = await axios.put(`/events/${event._id}/bookedBy`, {
+      userId: user._id, // Pass the current user ID
+    });
+    console.log("Event updated:", eventUpdateResponse.data);
+
+    alert("User and event details updated successfully!");
+  } catch (error) {
+    console.error("Error updating user or event details:", error.response?.data || error.message);
+    alert("Error updating details: " + (error.response?.data || error.message));
+  }
+};
+
+
+// Wrapper function to handle all actions
+const handlePaymentAndUpdates = async (e) => {
+  e.preventDefault();
+
+  try {
+    // Step 1: Create ticket
+    await createTicket(e);
+
+    // Step 2: Update user and event details
+    await updateUserAndEventDetails();
+  } catch (error) {
+    console.error("Error in payment or updates:", error);
+  }
+};
+
 //! Helper function to generate QR code ------------------------------
 async function generateQRCode(name, eventName) {
   try {
@@ -168,41 +206,12 @@ if (redirect){
           </Link>
           </div>
       <div className="ml-12 bg-gray-100 shadow-lg mt-8 p-16 w-3/5 float-left">
-          {/* Your Details */}
-          <div className="mt-8 space-y-4">
-            <h2 className="text-xl font-bold mb-4">Your Details</h2>
-            <input
-              type="text"
-              name="name"
-              value={details.name}
-              onChange={handleChangeDetails}
-              placeholder="Name"
-              className="input-field ml-10 w-80 h-10 bg-gray-50 border border-gray-30  rounded-md p-2.5"
-            />
-            <input
-              type="email"
-              name="email"
-              value={details.email}
-              onChange={handleChangeDetails}
-              placeholder="Email"
-              className="input-field w-80 ml-3 h-10 bg-gray-50 border border-gray-30  rounded-sm p-2.5"
-            />
-            <div className="flex space-x-4">
-            <input
-              type="tel"
-              name="contactNo"
-              value={details.contactNo}
-              onChange={handleChangeDetails}
-              placeholder="Contact No"
-              className="input-field ml-10 w-80 h-10 bg-gray-50 border border-gray-30 rounded-sm p-2.5"
-            />
-            </div>
-          </div>
+
   
-          {/* Payment Option */}
+          {/* Payment Details */}
      
           <div className="mt-10 space-y-4">
-            <h2 className="text-xl font-bold mb-4">Payment Option</h2>
+            <h2 className="text-xl font-bold mb-4">Payment Details</h2>
             <div className="ml-10">
             <button type="button" className="px-8 py-3 text-black bg-red-100  focus:outline border rounded-sm border-gray-300" disabled>Credit / Debit Card</button>
             </div>
@@ -249,7 +258,7 @@ if (redirect){
             <p className="text-sm font-semibold pb-2 pt-8">Total : Rs. {event.ticketPrice}</p>
             <Link to={'/'}>
               <button type="button" 
-                onClick = {createTicket}
+                onClick = {handlePaymentAndUpdates}
                 className="primary">
                 
                
