@@ -122,26 +122,26 @@ export default function PaymentSummary() {
 
 }
 // Function to update user and event details
-const updateUserAndEventDetails = async () => {
-  try {
-    // Update the user's bookedEvents
-    const userUpdateResponse = await axios.put(`/users/${user._id}/bookedEvents`, {
-      eventId: event._id, // Pass the current event ID
-    });
-    console.log("User updated:", userUpdateResponse.data);
+// const updateUserAndEventDetails = async () => {
+//   try {
+//     // Update the user's bookedEvents
+//     const userUpdateResponse = await axios.put(`/users/${user._id}/bookedEvents`, {
+//       eventId: event._id, // Pass the current event ID
+//     });
+//     console.log("User updated:", userUpdateResponse.data);
 
-    // Update the event's bookedBy
-    const eventUpdateResponse = await axios.put(`/events/${event._id}/bookedBy`, {
-      userId: user._id, // Pass the current user ID
-    });
-    console.log("Event updated:", eventUpdateResponse.data);
+//     // Update the event's bookedBy
+//     const eventUpdateResponse = await axios.put(`/events/${event._id}/bookedBy`, {
+//       userId: user._id, // Pass the current user ID
+//     });
+//     console.log("Event updated:", eventUpdateResponse.data);
 
-    alert("User and event details updated successfully!");
-  } catch (error) {
-    console.error("Error updating user or event details:", error.response?.data || error.message);
-    alert("Error updating details: " + (error.response?.data || error.message));
-  }
-};
+//     alert("User and event details updated successfully!");
+//   } catch (error) {
+//     console.error("Error updating user or event details:", error.response?.data || error.message);
+//     alert("Error updating details: " + (error.response?.data || error.message));
+//   }
+// };
 
 
 // Wrapper function to handle all actions
@@ -152,8 +152,8 @@ const handlePaymentAndUpdates = async (e) => {
     // Step 1: Create ticket
     await createTicket(e);
 
-    // Step 2: Update user and event details
-    await updateUserAndEventDetails();
+    // // Step 2: Update user and event details
+    // await updateUserAndEventDetails();
   } catch (error) {
     console.error("Error in payment or updates:", error);
   }
@@ -219,7 +219,7 @@ if (redirect){
             <input
               type="text"
               name="nameOnCard"
-              value= "A.B.S.L. Perera"                       
+              value= "Yes Bank, Patiala"                       
               onChange={handleChangePayment}
               placeholder="Name on Card"
               className="input-field w-80 ml-10 h-10 bg-gray-50 border border-gray-30  rounded-sm p-2.5"
