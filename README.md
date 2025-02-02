@@ -9,6 +9,7 @@ Welcome to the **Thapar Event Management System (TEMS)**, a comprehensive platfo
 - [Installation](#installation)
 - [Usage](#usage)
 - [Testing](#testing)
+- [Contributors](#contributors)
 - [Screenshots](#screenshots)
 
 ## Introduction
@@ -82,6 +83,12 @@ The project includes a comprehensive testing plan to ensure functionality, perfo
 ### Security Testing
 - Validating user authentication and data privacy.
 
+## Contributors
+
+- [Radhika Rani](https://github.com/radhika-gh/) - GitHub
+- [Swayam Aggarwal](https://github.com/Swayam0407/) - GitHub
+
+  
 ## Screenshots
 
 ### 1. Sign Up Page
