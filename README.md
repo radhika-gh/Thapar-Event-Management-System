@@ -50,11 +50,11 @@ To set up the Thapar Event Management System locally, follow these steps:
    JWT_SECRET=your_jwt_secret_key
 4. **Run the backend:**:
    ```bash
-   cd backend
+   cd api
    nodemon start
 5. **Run the frontend:**:
    ```bash
-   cd backend
+   cd client
    npm run dev
 ## Usage
 
